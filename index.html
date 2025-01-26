@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Animation</title>
+  <link rel="icon" type="image/x-icon" href="https://pngimg.com/d/heart_PNG51168.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #ffe6f0;
+      overflow: hidden;
+    }
+
+    .floating-heart {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background-color: #ff6f91;
+      border-radius: 50%;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10%);
+        opacity: 0;
+      }
+    }
+
+    .sentence {
+      font-size: 2rem;
+      margin: 20px 0;
+      opacity: 0;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: none; /* Hide by default */
+    }
+
+    .buttons {
+      display: none;
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating hearts -->
+  <div class="floating-heart" style="top: 80%; left: 20%; animation-delay: 0s;"></div>
+  <div class="floating-heart" style="top: 90%; left: 50%; animation-delay: 1s;"></div>
+  <div class="floating-heart" style="top: 85%; left: 70%; animation-delay: 2s;"></div>
+  <div class="floating-heart" style="top: 95%; left: 30%; animation-delay: 1.5s;"></div>
+  <div class="floating-heart" style="top: 70%; left: 10%; animation-delay: 0.5s;"></div>
+  <div class="floating-heart" style="top: 75%; left: 80%; animation-delay: 1.2s;"></div>
+  <div class="floating-heart" style="top: 65%; left: 40%; animation-delay: 1.8s;"></div>
+  <div class="floating-heart" style="top: 60%; left: 60%; animation-delay: 2.5s;"></div>
+  <div class="floating-heart" style="top: 85%; left: 90%; animation-delay: 3s;"></div>
+  <div class="floating-heart" style="top: 90%; left: 20%; animation-delay: 0.8s;"></div>
+  
+
+  <div id="step1" class="sentence">It's your special day, yeyeye!</div>
+  <div id="step2" class="sentence">To make something special for you because you are special to me!</div>
+  <div id="step3" class="sentence">Do you wanna see what I made?</div>
+  <div class="buttons">
+    <button onclick="location.href='yes.html'">Yes</button>
+    <button onclick="location.href='no.html'">No</button>
+  </div>
+
+  <script>
+    function showSentence(target) {
+      document.querySelectorAll('.sentence').forEach(sentence => {
+        if (sentence.id === target) {
+          sentence.style.display = 'block'; // Show current sentence
+          anime({
+            targets: sentence,
+            opacity: [0, 1],
+            duration: 1000,
+            easing: 'easeOutExpo',
+            complete: () => {
+              // Hide the next sentence after a delay
+              setTimeout(() => {
+                sentence.style.display = 'none';
+              }, 2000); // Adjust delay before hiding
+            }
+          });
+        } else {
+          sentence.style.display = 'none'; // Hide others
+        }
+      });
+    }
+
+    // Start the animations
+    showSentence('step1');
+
+    // Show the next sentences with delays
+    setTimeout(() => {
+      showSentence('step2');
+      setTimeout(() => {
+        showSentence('step3');
+        setTimeout(() => {
+          document.querySelector('.buttons').style.display = 'flex';
+        }, 1000); // Delay before showing buttons
+      }, 2000); // Delay before showing the third sentence
+    }, 3000); // Delay before showing the second sentence
+  </script>
+</body>
+</html>

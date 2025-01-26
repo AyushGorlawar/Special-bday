@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://pngimg.com/d/heart_PNG51168.png">
+    <title>Exciting Celebration</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: rgb(0, 0, 0);
+            position: relative;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height of viewport */
+            flex-direction: column; /* Stack buttons vertically */
+            transition: background-color 0.5s ease; /* Smooth transition for background color */
+        }
+
+        .button {
+            display: none;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: rgb(56, 30, 255);
+            color: rgb(250, 250, 250);
+            box-shadow: 0 0 15px blue;
+            transition: background-color 0.3s, transform 0.3s;
+            margin: 20px; /* Space between buttons */
+        }
+
+        .button.glow {
+            animation: glow 1.5s infinite alternate;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+        }
+
+        @keyframes glow {
+            0% { background-color: rgb(255, 249, 185); box-shadow: 0 0 20px rgb(253, 255, 155); }
+            100% { background-color: rgb(255, 129, 129); box-shadow: 0 0 40px rgb(255, 206, 204); }
+        }
+
+        .star {
+            position: absolute;
+            background: rgb(243, 255, 162);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .banner {
+            display: none;
+            position: absolute;
+            top: 20px; /* Position at the top */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px; /* Adjust width as needed */
+            opacity: 0; /* Start hidden for fade-in effect */
+            transition: opacity 1s ease; /* Smooth fade in */
+        }
+
+        #teddyBear {
+            display: none; /* Start hidden */
+            position: absolute;
+            top: 150px; /* Position teddy bear below the banner */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px; /* Adjust the size of the teddy bear image */
+            opacity: 0; /* Start hidden for animation */
+            transition: opacity 1s ease; /* Smooth fade in */
+        }
+
+        /* Balloon Animation */
+        .balloon {
+            position: absolute;
+            width: 50px; /* Size of the balloon */
+            animation: float 5s ease-in infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Lights On Button -->
+    <button class="button glow" id="lightsOnButton">Lights On</button>
+    <button class="button" id="playMusicButton">Play Music</button>
+    <button class="button" id="decorateButton">Decorate</button>
+    
+    <!-- Placeholder for Birthday Banner -->
+    <div class="banner" id="banner">
+        <img src="banner.png" alt="Happy Birthday Banner" style="width: 100%; height: auto;">
+    </div>
+    
+    <!-- Placeholder for Teddy Bear -->
+    <img src="teddy.png" id="teddyBear" alt="Teddy Bear" style="width: 100%; height: auto;">
+
+    <audio id="backgroundMusic" src="music.mp3" preload="auto"></audio> <!-- Your music file -->
+
+    <script>
+        // Show Lights On button
+        document.getElementById('lightsOnButton').style.display = 'block';
+
+        // Function to create stars
+        function createStars() {
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                const size = Math.random() * 3 + 1; // Random size for stars
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 2 + 1}s`; // Random twinkle speed
+                document.body.appendChild(star);
+            }
+        }
+
+        // Function to create balloons
+        function createBalloons() {
+            for (let i = 0; i < 10; i++) {
+                const balloon = document.createElement('img');
+                balloon.src = 'https://www.freeiconspng.com/thumbs/balloon-png/blue-balloon-png-14.png'; // Placeholder for balloon image
+                balloon.classList.add('balloon');
+                balloon.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+                balloon.style.animationDelay = `${Math.random() * 5}s`; // Random delay for each balloon
+                document.body.appendChild(balloon);
+            }
+        }
+
+        // Lights On button functionality
+        document.getElementById('lightsOnButton').onclick = function() {
+            createStars(); // Create starry background
+            createBalloons(); // Create balloon background
+            document.body.style.backgroundColor = 'lightblue'; // Change to light blue
+            this.style.display = 'none'; // Hide Lights On button
+            document.getElementById('playMusicButton').style.display = 'block'; // Show Play Music button
+        };
+
+        // Play Music button functionality
+        document.getElementById('playMusicButton').onclick = function() {
+            const music = document.getElementById('backgroundMusic');
+            music.play(); // Play the background music
+            this.style.display = 'none'; // Hide Play Music button
+            showDecorateButton(); // Show Decorate button after music starts
+        };
+
+        // Function to show Decorate button after a delay
+        function showDecorateButton() {
+            setTimeout(() => {
+                document.getElementById('decorateButton').style.display = 'block'; // Show Decorate button
+            }, 2000); // Adjust delay for when the Decorate button appears (after music starts)
+        }
+
+        // Decorate button functionality
+        document.getElementById('decorateButton').onclick = function() {
+            this.style.display = 'none'; // Hide Decorate button
+            const banner = document.getElementById('banner');
+            banner.style.display = 'block'; // Show birthday banner
+            banner.style.opacity = 1; // Fade in the banner
+
+            // Show teddy bear image
+            const teddyBear = document.getElementById('teddyBear');
+            teddyBear.style.display = 'block'; // Show teddy bear image
+            teddyBear.style.opacity = 1; // Fade in teddy bear
+        };
+    </script>
+</body>
+</html>

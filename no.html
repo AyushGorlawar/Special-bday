@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://pngimg.com/d/broken_heart_PNG47.png">
+    <title>Oh No!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffe6f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background-color: #ff99c8;
+            color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #ff6f91;
+            transform: scale(1.1);
+        }
+
+        .question {
+            margin: 20px 0;
+            font-size: 1.5rem;
+            color: #ff69b4;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .floating-heart {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+            background-size: cover;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        .floating-heart:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-heart:nth-child(2) {
+            left: 30%;
+            animation-delay: 1s;
+        }
+
+        .floating-heart:nth-child(3) {
+            left: 50%;
+            animation-delay: 2s;
+        }
+
+        .floating-heart:nth-child(4) {
+            left: 70%;
+            animation-delay: 3s;
+        }
+
+        .floating-heart:nth-child(5) {
+            left: 90%;
+            animation-delay: 4s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts -->
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+
+    <!-- Question and Buttons -->
+    <div id="questionContainer" class="question">Are you sure you don't want to see something special?</div>
+    <button class="button" id="yesButton">Yes</button>
+    <button class="button" id="noButton">No</button>
+
+    <script>
+        let questionIndex = 0;
+        const questions = [
+            "Are you really going to say no to a surprise? 🥺",
+            "What if I told you there's a cute teddy bear waiting for you? 🧸",
+            "You don't want to miss out on the fun, do you? 🎉",
+            "Come on, don't be shy! Just say yes! ❤️",
+        ];
+
+        const questionContainer = document.getElementById('questionContainer');
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+
+        // Function to show the current question
+        function showQuestion() {
+            questionContainer.textContent = questions[questionIndex];
+            questionContainer.style.opacity = 1; // Fade in the question
+        }
+
+        // Initial question display
+        showQuestion();
+
+        // Handle No button click
+        noButton.onclick = function() {
+            questionIndex++;
+            if (questionIndex < questions.length) {
+                showQuestion(); // Show next question
+            } else {
+                // If all questions have been asked, show the final options
+                questionContainer.textContent = "Okay, one last chance! 😘";
+                questionContainer.style.opacity = 1;
+                noButton.style.display = 'none'; // Hide the No button
+                yesButton.textContent = "Yes, show me! 🌟";
+                yesButton.onclick = function() {
+                    window.location.href = 'yes.html'; // Link to yes.html
+                };
+                yesButton.style.display = 'block'; // Show Yes button
+            }
+        };
+
+        // Handle Yes button click
+        yesButton.onclick = function() {
+            window.location.href = 'yes.html'; // Link to yes.html
+        };
+    </script>
+</body>
+</html>
